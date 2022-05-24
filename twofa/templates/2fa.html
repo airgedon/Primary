@@ -1,37 +1,38 @@
 {% extends "base.html" %}
-
+{% load widget_tweaks %}
 {% block container %}
 <div class="row centered-form">
-  <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-1 col-md-offset-3">
-    <div class="panel panel-default" style="width: 150%">
-      
-      <div class="panel-heading">
-        <h3 class="panel-title">Token Verification</h3>
-      </div>
-      
-      <div class="panel-body">
-        <form action="{% url '2fa' %}" method="POST" role="form">
-          {% csrf_token %}
-          {{ form.non_field_errors }}
-          {{ form.token.errors }}
+    <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-1 col-md-offset-3">
+        <div class="panel panel-default" style="width: 150%">
 
-          <div class="row">
-            {{ form.token }}
-          </div>
+            <div class="panel-heading">
+                <h3 class="panel-title">Вторая верификация</h3>
+            </div>
 
-          <div class="row">
-            <div class="col-xs-3 col-sm-3 col-md-3">
-              <a href="{% url 'token-sms' %}" class="btn btn-info btn-block action-btn">SMS</a>
+            <div class="panel-body">
+                <form action="{% url '2fa' %}" method="POST" role="form">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    {{ form.token.errors }}
+
+                    <div class="row">
+                        {% render_field form.token class="form-control" placeholder="Введите код который должен прийти" type="text" style="font-family:Times New Roman" %}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                            <a href="{% url 'token-sms' %}" class="btn btn-block action-btn" style="background-color: yellow" >СМС</a>
+                        </div>
+
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                            <input type="submit" value="Верифицировать" class="btn btn-block" style="background-color: yellow; height: 35px">
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="col-xs-3 col-sm-3 col-md-3">
-              <input type="submit" value="Verify" class="btn btn-success btn-block">
-            </div>
-          </div>
-        </form>
-      </div>
-    
+
+        </div>
     </div>
-  </div>
 </div>
 
 <script>
@@ -66,5 +67,6 @@
     }
   }
   $(document).ready(initializeActionButtons);
+
 </script>
 {% endblock %}
