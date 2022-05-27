@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block container %}
+
+<a href="{% url 'profile' %}"><img style="width:9%"
+                                   src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/64/000000/external-user-interface-kiranshastry-gradient-kiranshastry.png"
+                                   alt=""/></a>
+<span class="hello-msg"><a href="{% url 'logout' %}" class="btn btn-primary" style="margin-left: 400px;" type="submit">
+            Logout </a></span>
+<div>{% block message %}{% endblock %}</div>
+<form class="d-flex" id="authstyle">{% block logout %}{% endblock %}</form>
+{% endblock %}

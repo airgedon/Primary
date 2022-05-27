@@ -1,17 +1,15 @@
 from authy.api import AuthyApiClient
 from django.conf import settings
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-
-
+from django.shortcuts import render, redirect, get_object_or_404
 from .decorators import twofa_required
 from .forms import RegistrationForm, TokenVerificationForm
 from .models import TwoFAUser
 
-
 authy_api = AuthyApiClient(settings.ACCOUNT_SECURITY_API_KEY)
+User = settings.AUTH_USER_MODEL
 
 
 def home(request):
@@ -57,6 +55,9 @@ def twofa(request):
     else:
         form = TokenVerificationForm()
     return render(request, '2fa.html', {'form': form})
+
+
+
 
 
 @login_required
@@ -121,3 +122,8 @@ def onetouch_status(request):
 @twofa_required
 def protected(request):
     return render(request, 'protected.html')
+
+
+def logoutUser(request):
+    logout(request)
+    return redirect('login')

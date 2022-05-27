@@ -46,3 +46,4 @@ class VerificationForm(forms.Form):
 class TokenForm(forms.Form):
     token = forms.CharField(
         widget=BootstrapInput('Verification Token', size=6))
+

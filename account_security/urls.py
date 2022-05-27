@@ -4,11 +4,10 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
 from twofa import views as twofa_views
-from phone_verification import views as verify_views
 
 urlpatterns = [
                   path('login/', auth_views.LoginView.as_view(), name='login'),
-                  path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+                  path('logout/', twofa_views.logoutUser, name='logout'),
 
                   path('', twofa_views.register, name='register'),
                   path('2fa/', twofa_views.twofa, name='2fa'),  # green

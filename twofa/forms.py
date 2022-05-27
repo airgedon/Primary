@@ -3,10 +3,10 @@ import phonenumbers
 from authy.api import AuthyApiClient
 from django import forms
 from django.conf import settings
+from django.contrib.auth.forms import UserCreationForm
 from phonenumbers.phonenumberutil import NumberParseException
 
 from .models import TwoFAUser
-
 
 authy_api = AuthyApiClient(settings.ACCOUNT_SECURITY_API_KEY)
 
@@ -98,3 +98,5 @@ class TokenVerificationForm(forms.Form):
         verification = authy_api.tokens.verify(self.authy_id, token)
         if not verification.ok():
             self.add_error('token', 'Invalid token')
+
+
